@@ -5,7 +5,6 @@
  * @format
  */
 
-import { AppScreen } from '@/components/atoms';
 import { toastConfig } from '@/configs';
 import { StatusBar, StyleSheet, useColorScheme } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -14,6 +13,7 @@ import Toast from 'react-native-toast-message';
 
 import { AppProviders } from './AppProviders';
 import { LoginForm } from '@/components/molecules/form';
+import { AppScreen } from '@/components/layout';
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
   // const { BottomSheet, openBottomSheet } = useAppBottomSheet({
