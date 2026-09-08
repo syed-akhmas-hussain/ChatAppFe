@@ -24,7 +24,7 @@ export const AppDivider = forwardRef<View, AppDividerProps>(
       orientation = 'horizontal',
       length = '100%',
       thickness = StyleSheet.hairlineWidth * 2,
-      color = Colors.semantic.border,
+      color = Colors.border.default,
       inset = 0,
       style,
       ...props

@@ -3,47 +3,47 @@ import { Colors } from './colors';
 export const Button = {
   variants: {
     primary: {
-      background: Colors.primary.c500,
-      foreground: Colors.common.white,
-      border: Colors.primary.c500,
+      background: Colors.primary,
+      foreground: Colors.background,
+      border: Colors.primary,
     },
 
     secondary: {
-      background: Colors.secondary.c500,
-      foreground: Colors.common.white,
-      border: Colors.secondary.c500,
+      background: Colors.secondary,
+      foreground: Colors.background,
+      border: Colors.secondary,
     },
 
     outline: {
-      background: Colors.common.transparent,
-      foreground: Colors.primary.c500,
-      border: Colors.primary.c500,
+      background: Colors.transparent,
+      foreground: Colors.primary,
+      border: Colors.primary,
     },
 
     text: {
-      background: Colors.common.transparent,
-      foreground: Colors.primary.c500,
-      border: Colors.common.transparent,
+      background: Colors.transparent,
+      foreground: Colors.primary,
+      border: Colors.transparent,
     },
   },
 
   disabled: {
-    background: Colors.gray.c200,
-    foreground: Colors.gray.c500,
-    border: Colors.gray.c200,
+    background: Colors.gray,
+    foreground: Colors.gray,
+    border: Colors.gray,
   },
 
   spinner: {
-    light: Colors.common.white,
-    dark: Colors.primary.c500,
+    light: Colors.background,
+    dark: Colors.primary,
   },
 
   success: {
-    color: Colors.success.c500,
+    color: Colors.status.success,
   },
 
   error: {
-    color: Colors.error.c500,
+    color: Colors.status.error,
   },
 } as const;
 

@@ -1,5 +1,5 @@
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import { Colors, moderateScale, Sizes } from '@/theme';
+import { Colors, moderateScale, Radius, Sizes, Typography } from '@/theme';
 import { StyleSheet, View } from 'react-native';
 import { FeildWrapper } from '../components';
 import { ACheckboxInputProps } from './types';
@@ -45,7 +45,7 @@ export const ACheckboxInput = <T extends string = string>({
                 : value?.[0] === option.value
             }
             onPress={checked => handleChange(checked, option.value)}
-            fillColor={Colors.primary.c400}
+            fillColor={Colors.primary}
             text={option.label}
             textStyle={styles.textStyle}
             innerIconStyle={[styles.border, !isRadio && styles.checkboxBorder]}
@@ -58,12 +58,13 @@ export const ACheckboxInput = <T extends string = string>({
 };
 const styles = StyleSheet.create({
   border: {
-    borderColor: Colors.semantic.border,
+    borderColor: Colors.border.default,
   },
   checkboxBorder: {
-    borderRadius: moderateScale(Sizes.xs),
+    borderRadius: Radius.sm,
   },
   textStyle: {
+    ...Typography.body,
     textDecorationLine: 'none',
   },
   container: {

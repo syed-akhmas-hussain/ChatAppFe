@@ -35,8 +35,8 @@ export const AppBadge = forwardRef<View, AppBadgeProps>(
       dot = false,
       max = 99,
       size = Sizes._2xl,
-      color = Colors.gray.c800,
-      textColor = Colors.gray.c800,
+      color = Colors.gray,
+      textColor = Colors.gray,
       variant = 'solid',
       style,
       ...props

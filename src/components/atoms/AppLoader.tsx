@@ -18,7 +18,7 @@ export const AppLoader = forwardRef<ActivityIndicator, AppLoaderProps>(
   (
     {
       size = Sizes.md,
-      color = Colors.semantic.border,
+      color = Colors.border.default,
       centered,
       children,
       ...props

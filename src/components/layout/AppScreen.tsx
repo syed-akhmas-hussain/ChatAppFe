@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: moderateScale(Sizes.md),
-    backgroundColor: Colors.semantic.background,
+    backgroundColor: Colors.background,
   },
 
   keyboardContainer: {

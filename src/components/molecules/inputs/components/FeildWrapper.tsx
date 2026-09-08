@@ -84,9 +84,9 @@ const styles = StyleSheet.create({
     gap: scale(Sizes._2xs),
   },
   required: {
-    color: Colors.semantic.error,
+    color: Colors.status.error,
   },
   error: {
-    color: Colors.semantic.error,
+    color: Colors.status.error,
   },
 });

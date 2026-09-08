@@ -8,7 +8,14 @@ import {
 import { AppPressable, AppPressableProps } from './AppPressable';
 import { IconName } from '@/assets/Icons/svg';
 import { forwardRef } from 'react';
-import { Colors, moderateScale, scale, Sizes, verticalScale } from '@/theme';
+import {
+  Colors,
+  moderateScale,
+  Radius,
+  scale,
+  Sizes,
+  verticalScale,
+} from '@/theme';
 import { AppText } from './AppText';
 import { AppIcon } from './AppIcon';
 
@@ -48,28 +55,28 @@ export const AppChip = forwardRef<View, AppChipProps>(
     switch (variant) {
       case ChipVariant.Solid:
         containerDynamicStyles.backgroundColor = selected
-          ? Colors.primary.c600
-          : Colors.primary.c500;
+          ? Colors.primary
+          : Colors.primary;
         break;
       case ChipVariant.Soft:
         containerDynamicStyles.backgroundColor = selected
-          ? Colors.primary.c100
-          : Colors.gray.c200;
-        textColor = Colors.primary.c700;
+          ? Colors.primary
+          : Colors.gray;
+        textColor = Colors.primary;
         break;
       case ChipVariant.Outline:
-        containerDynamicStyles.borderColor = Colors.primary.c500;
+        containerDynamicStyles.borderColor = Colors.primary;
         containerDynamicStyles.backgroundColor = 'transparent';
-        textColor = Colors.primary.c700;
+        textColor = Colors.primary;
         break;
       default:
         break;
     }
 
     if (disabled) {
-      containerDynamicStyles.backgroundColor = Colors.gray.c200;
-      textColor = Colors.gray.c400;
-      containerDynamicStyles.borderColor = Colors.gray.c200;
+      containerDynamicStyles.backgroundColor = Colors.gray;
+      textColor = Colors.gray;
+      containerDynamicStyles.borderColor = Colors.gray;
     }
 
     return (
@@ -106,7 +113,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: scale(Sizes.md),
     paddingVertical: verticalScale(Sizes.xs),
-    borderRadius: 999,
+    borderRadius: Radius.full,
     borderWidth: StyleSheet.hairlineWidth,
   },
 
@@ -117,7 +124,7 @@ const styles = StyleSheet.create({
   },
 
   wrapper: {
-    borderRadius: 999,
+    borderRadius: Radius.full,
     overflow: 'hidden',
   },
 });

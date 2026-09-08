@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: verticalScale(Screen.height * 0.2),
-    borderColor: Colors.semantic.border,
+    borderColor: Colors.border.default,
     borderWidth: 1,
     borderStyle: 'dashed',
     position: 'relative',
@@ -141,15 +141,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
-  // topRightIcon: {
-  //   position: 'absolute',
-  //   top: moderateScale(Sizes._2xs),
-  //   right: moderateScale(Sizes._2xs),
-  //   zIndex: 999,
-  //   elevation: 999,
-  //   backgroundColor: 'red',
-  // },
 
   topRightIcon: {
     top: moderateScale(0),

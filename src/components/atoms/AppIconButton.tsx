@@ -1,4 +1,4 @@
-import { Colors, moderateScale, Sizes } from '@/theme';
+import { Colors, moderateScale, Radius, Sizes } from '@/theme';
 import { View, ViewStyle } from 'react-native';
 import { forwardRef } from 'react';
 import { IconName } from '@/assets/Icons/svg';
@@ -17,7 +17,7 @@ export const AppIconButton = forwardRef<View, AppIconButtonProps>(
     {
       iconName = 'X',
       iconSize = moderateScale(Sizes.lg),
-      iconColor = Colors.common.black,
+      iconColor = Colors.icon,
       iconShape = 'square',
       borderless = false,
       ...props
@@ -33,11 +33,11 @@ export const AppIconButton = forwardRef<View, AppIconButtonProps>(
           const baseStyle: ViewStyle = {
             ...(!borderless && {
               borderWidth: 1,
-              borderColor: Colors.semantic.border,
+              borderColor: Colors.border.default,
               borderRadius:
                 iconShape === 'circle'
                   ? moderateScale(iconSize / 2)
-                  : moderateScale(Sizes._2xs),
+                  : Radius.xs,
             }),
             overflow: 'hidden',
           };

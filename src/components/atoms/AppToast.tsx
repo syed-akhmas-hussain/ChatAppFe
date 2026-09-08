@@ -41,28 +41,28 @@ export const AppToast = forwardRef<View, AppToastProps>(
       switch (toastType) {
         case ToastTypes.SUCCESS:
           return {
-            color: Colors.success.c100,
+            color: Colors.status.success,
             heading: text1 ?? ToastTypes.SUCCESS,
             body: text2 ?? ToastTypes.SUCCESS,
             icon: <AppIcon name="CircleCheck" size={moderateScale(Sizes.xl)} />,
           };
         case ToastTypes.ERROR:
           return {
-            color: Colors.error.c100,
+            color: Colors.status.error,
             heading: text1 ?? ToastTypes.ERROR,
             body: text2 ?? ToastTypes.ERROR,
             icon: <AppIcon name="Error" size={moderateScale(Sizes.xl)} />,
           };
         case ToastTypes.WARNING:
           return {
-            color: Colors.warning.c100,
+            color: Colors.status.warning,
             heading: text1 ?? ToastTypes.WARNING,
             body: text2 ?? ToastTypes.WARNING,
             icon: <AppIcon name="Warning" size={moderateScale(Sizes.xl)} />,
           };
         default:
           return {
-            color: Colors.primary.c100,
+            color: Colors.primary,
             heading: text1 ?? ToastTypes.INFO,
             body: text2 ?? ToastTypes.INFO,
             icon: <AppIcon name="Info" size={moderateScale(Sizes.xl)} />,

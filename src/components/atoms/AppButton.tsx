@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import { AppPressable, AppPressableProps } from './AppPressable';
-import { scale, Sizes, verticalScale } from '@/theme';
+import { Radius, scale, Sizes, verticalScale } from '@/theme';
 import { AppIcon, AppText } from '.';
 import { Button, ButtonVariant } from '@/theme';
 type LeftIconProps = {
@@ -144,7 +144,7 @@ AppButton.displayName = 'AppButton';
 
 const styles = StyleSheet.create({
   wrapper: {
-    borderRadius: scale(Sizes.sm),
+    borderRadius: Radius.md,
     overflow: 'hidden',
   },
   container: {
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(Sizes.md),
     paddingVertical: verticalScale(Sizes.sm),
 
-    borderRadius: scale(Sizes.sm),
+    borderRadius: Radius.md,
     borderWidth: StyleSheet.hairlineWidth,
   },
 

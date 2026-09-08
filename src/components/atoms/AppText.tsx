@@ -1,4 +1,4 @@
-import { Colors, moderateScale, Typography } from '@/theme';
+import { Colors, Typography } from '@/theme';
 import React, { forwardRef } from 'react';
 import { StyleSheet, Text, TextProps, TextStyle } from 'react-native';
 type AppTextVariant = React.ForwardRefExoticComponent<
@@ -21,48 +21,33 @@ const createTextComponent = (name: AppTextVariantName, preset: TextStyle) => {
 };
 
 const baseStyle: TextStyle = {
-  color: Colors.semantic.text,
+  color: Colors.text.primary,
 };
 
 const styles = StyleSheet.create({
   body: {
     ...baseStyle,
-    fontFamily: Typography.fontFamily.regular,
-    fontWeight: Typography.fontWeight.regular,
-    fontSize: moderateScale(Typography.fontSize.lg),
-    letterSpacing: Typography.letterSpacing.normal,
+    ...Typography.body,
   },
 
   title: {
     ...baseStyle,
-    fontFamily: Typography.fontFamily.bold,
-    fontWeight: Typography.fontWeight.bold,
-    fontSize: moderateScale(Typography.fontSize.xl),
-    letterSpacing: Typography.letterSpacing.tight,
+    ...Typography.listTitle,
   },
 
   heading: {
     ...baseStyle,
-    fontFamily: Typography.fontFamily.extraBold,
-    fontWeight: Typography.fontWeight.extraBold,
-    fontSize: moderateScale(Typography.fontSize._4xl),
-    letterSpacing: Typography.letterSpacing.tight,
+    ...Typography.sectionHeading,
   },
 
   label: {
     ...baseStyle,
-    fontFamily: Typography.fontFamily.medium,
-    fontWeight: Typography.fontWeight.semiBold,
-    fontSize: moderateScale(Typography.fontSize.lg),
-    letterSpacing: Typography.letterSpacing.normal,
+    ...Typography.inputLabel,
   },
 
   caption: {
     ...baseStyle,
-    fontFamily: Typography.fontFamily.regular,
-    fontWeight: Typography.fontWeight.regular,
-    fontSize: moderateScale(Typography.fontSize.md),
-    letterSpacing: Typography.letterSpacing.wide,
+    ...Typography.caption,
   },
 });
 export const AppText = Object.freeze({

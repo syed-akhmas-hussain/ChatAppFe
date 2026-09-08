@@ -1,4 +1,4 @@
-import { Colors, moderateScale, Sizes, verticalScale } from '@/theme';
+import { Colors, Radius, Sizes, verticalScale } from '@/theme';
 import { StyleSheet } from 'react-native';
 import { CallingCode, CountryCode, PhoneInput } from 'react-native-phone-entry';
 import { FeildWrapper } from '../components';
@@ -79,10 +79,11 @@ const styles = StyleSheet.create({
     width: '100%',
     height: verticalScale(Sizes._6xl),
     borderWidth: 1,
-    borderColor: Colors.semantic.border,
-    borderRadius: moderateScale(Sizes.sm),
+    borderColor: Colors.border.default,
+    borderRadius: Radius.md,
+    backgroundColor: Colors.background,
   },
   textInputStyle: {
-    color: Colors.semantic.text,
+    color: Colors.text.primary,
   },
 });

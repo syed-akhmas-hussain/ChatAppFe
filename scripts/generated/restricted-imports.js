@@ -85,6 +85,14 @@ module.exports = [
     message: 'Import colors from "@/theme" instead.',
   },
   {
+    group: ['@/theme/layout'],
+    message: 'Import layout from "@/theme" instead.',
+  },
+  {
+    group: ['@/theme/radius'],
+    message: 'Import radius from "@/theme" instead.',
+  },
+  {
     group: ['@/theme/responsive'],
     message: 'Import responsive from "@/theme" instead.',
   },

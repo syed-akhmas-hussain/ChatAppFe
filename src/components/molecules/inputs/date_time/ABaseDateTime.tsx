@@ -1,6 +1,6 @@
 import { FeildWrapper } from '../components';
 import { StyleSheet } from 'react-native';
-import { Colors, moderateScale, scale, Sizes, verticalScale } from '@/theme';
+import { Colors, Radius, scale, Sizes, verticalScale } from '@/theme';
 import { useState } from 'react';
 import { AppPressable, AppText } from '@/components/atoms';
 import DatePicker from 'react-native-date-picker';
@@ -57,9 +57,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(Sizes.xs),
     paddingVertical: verticalScale(Sizes._2xs),
     borderWidth: 1,
-    borderColor: Colors.semantic.border,
-    borderRadius: moderateScale(Sizes.sm),
-    color: Colors.semantic.text,
+    borderColor: Colors.border.default,
+    borderRadius: Radius.md,
+    color: Colors.text.primary,
     justifyContent: 'center',
     height: verticalScale(Sizes._6xl),
   },

@@ -32,15 +32,15 @@ export const AppSwitch = forwardRef<Switch, AppSwitchProps>(
     ref,
   ) => {
     const resolvedTrackColor = {
-      false: disabled ? Colors.gray.c200 : Colors.gray.c300,
+      false: disabled ? Colors.gray : Colors.gray,
 
-      true: disabled ? Colors.primary.c200 : Colors.primary.c500,
+      true: disabled ? Colors.primary : Colors.primary,
 
       ...trackColor,
     };
 
     const resolvedThumbColor =
-      thumbColor ?? (disabled ? Colors.gray.c100 : Colors.common.white);
+      thumbColor ?? (disabled ? Colors.gray : Colors.surface);
     return (
       <View style={styles.container}>
         <AppText.Body>{sideText}</AppText.Body>

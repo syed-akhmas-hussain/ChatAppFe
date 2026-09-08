@@ -1,4 +1,4 @@
-import { Colors, moderateScale, scale, Sizes, verticalScale } from '@/theme';
+import { Colors, Radius, scale, Sizes, verticalScale } from '@/theme';
 import { StyleSheet } from 'react-native';
 import { OtpInput } from 'react-native-otp-entry';
 import { FeildWrapper } from '../components';
@@ -37,7 +37,7 @@ export const AOtpInput = ({
     >
       <OtpInput
         numberOfDigits={numberOfDigits}
-        focusColor={Colors.primary.c400}
+        focusColor={Colors.primary}
         autoFocus={false}
         placeholder={placeholder}
         disabled={false}
@@ -101,15 +101,15 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(Sizes._2xs),
   },
   pinCodeContainer: {
-    borderColor: Colors.semantic.border,
+    borderColor: Colors.border.default,
     borderWidth: 1,
-    borderRadius: moderateScale(Sizes.sm),
+    borderRadius: Radius.md,
   },
   pinCodeText: {
-    color: Colors.semantic.text,
+    color: Colors.text.primary,
   },
   focusStick: {
-    backgroundColor: Colors.semantic.text,
+    backgroundColor: Colors.text.primary,
   },
   label: {
     flexDirection: 'row',
@@ -118,9 +118,9 @@ const styles = StyleSheet.create({
     gap: scale(Sizes._2xs),
   },
   required: {
-    color: Colors.semantic.error,
+    color: Colors.status.error,
   },
   error: {
-    color: Colors.semantic.error,
+    color: Colors.status.error,
   },
 });

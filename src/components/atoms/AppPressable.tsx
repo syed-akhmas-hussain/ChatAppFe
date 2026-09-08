@@ -25,7 +25,7 @@ export const AppPressable = forwardRef<View, AppPressableProps>(
         {...props}
         android_ripple={
           android_ripple ?? {
-            color: Colors.gray.c300,
+            color: Colors.gray,
           }
         }
         style={state => {
