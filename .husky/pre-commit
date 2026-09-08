@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+echo "⚙️ Running generators..."
+yarn generate
+
+echo "📦 Re-staging generated files..."
+git add .
+
+echo "🔍 Running lint-staged..."
+yarn lint-staged

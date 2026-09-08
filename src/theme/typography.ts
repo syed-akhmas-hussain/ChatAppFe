@@ -1,0 +1,47 @@
+import { Sizes } from './sizes';
+export const Typography = {
+  fontFamily: {
+    light: 'System',
+    regular: 'System',
+    medium: 'System',
+    semiBold: 'System',
+    bold: 'System',
+    extraBold: 'System',
+  },
+  fontSize: {
+    xs: Sizes._2xs,
+    sm: Sizes.xs,
+    md: Sizes.sm,
+    lg: Sizes.md,
+    xl: Sizes.lg,
+    _2xl: Sizes.xl,
+    _3xl: Sizes._2xl,
+    _4xl: Sizes._3xl,
+    _5xl: Sizes._4xl,
+  },
+  fontWeight: {
+    light: '300',
+    regular: '400',
+    medium: '500',
+    semiBold: '600',
+    bold: '700',
+    extraBold: '800',
+  },
+  lineHeight: {
+    xs: Sizes.xs,
+    sm: Sizes.sm,
+    md: Sizes.md + 4,
+    lg: Sizes.lg + 4,
+    xl: Sizes.xl + 4,
+    _2xl: Sizes._2xl + 6,
+    _3xl: Sizes._3xl + 6,
+    _4xl: Sizes._4xl + 8,
+  },
+  letterSpacing: {
+    tighter: -0.5,
+    tight: -0.25,
+    normal: 0,
+    wide: 0.25,
+    wider: 0.5,
+  },
+} as const;

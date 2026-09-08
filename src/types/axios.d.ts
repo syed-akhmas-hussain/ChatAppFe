@@ -1,0 +1,9 @@
+import 'axios';
+
+declare module 'axios' {
+  interface AxiosRequestConfig {
+    skipAuth?: boolean;
+    skipRefresh?: boolean;
+    _retry?: boolean;
+  }
+}
