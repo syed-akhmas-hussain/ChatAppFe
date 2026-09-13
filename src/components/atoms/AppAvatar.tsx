@@ -1,17 +1,30 @@
 import { forwardRef } from 'react';
 import { AppImage, AppImageProps } from './AppImage';
-import { moderateScale, Sizes, ZIndex } from '@/theme';
-import { Image, StyleSheet, View } from 'react-native';
+import { Colors, moderateScale, Sizes, ZIndex } from '@/theme';
+import { Image, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { AvatarPlaceholder } from '@/assets/Icons/images';
 import { AppIconButton } from './AppIconButton';
 import { IconName } from '@/assets/Icons/svg';
-export interface AppAvatarProps extends AppImageProps {
+import { AppBadge } from './AppBadge';
+export type AppAvatarProps = AppImageProps & {
   size?: number | Extract<keyof typeof Sizes, 'sm' | 'md' | 'lg' | 'xl'>;
-  topRightIconName?: IconName;
-  bottomRightIconName?: IconName;
-  toprightOnPress?: () => void;
-  bottomRightOnPress?: () => void;
-}
+  conatinerStyles?: StyleProp<ViewStyle>;
+} & (
+    | {
+        topRightIconName?: IconName;
+        bottomRightIconName?: IconName;
+        toprightOnPress?: () => void;
+        bottomRightOnPress?: () => void;
+        badge: never;
+      }
+    | {
+        topRightIconName?: never;
+        bottomRightIconName?: never;
+        toprightOnPress?: never;
+        bottomRightOnPress?: never;
+        badge?: Element;
+      }
+  );
 export const AppAvatar = forwardRef<Image, AppAvatarProps>(
   (
     {
@@ -20,6 +33,8 @@ export const AppAvatar = forwardRef<Image, AppAvatarProps>(
       bottomRightIconName,
       toprightOnPress,
       bottomRightOnPress,
+      badge,
+      conatinerStyles,
       ...props
     },
     ref,
@@ -30,7 +45,7 @@ export const AppAvatar = forwardRef<Image, AppAvatarProps>(
         : moderateScale(Sizes[size]);
 
     return (
-      <View style={styles.avatarContainer}>
+      <View style={[styles.avatarContainer, conatinerStyles]}>
         <AppImage
           ref={ref}
           {...props}
@@ -53,6 +68,14 @@ export const AppAvatar = forwardRef<Image, AppAvatarProps>(
             iconShape="circle"
             style={[styles.bottomRightIcon, styles.commonStyles]}
             onPress={bottomRightOnPress}
+          />
+        )}
+        {badge && (
+          <AppBadge
+            dot
+            color={Colors.status.success}
+            size={Sizes.sm}
+            style={[styles.bottomRightIcon, styles.commonStyles]}
           />
         )}
       </View>

@@ -5,10 +5,11 @@ type AppTextVariant = React.ForwardRefExoticComponent<
   TextProps & React.RefAttributes<Text>
 >;
 type AppTextVariantName =
+  | 'LargeHeading'
   | 'Error'
   | 'Body'
   | 'Title'
-  | 'Heading'
+  | 'SectionHeading'
   | 'Label'
   | 'Caption';
 
@@ -27,7 +28,7 @@ const baseStyle: TextStyle = {
 const styles = StyleSheet.create({
   body: {
     ...baseStyle,
-    ...Typography.body,
+    ...Typography.bodyMedium,
   },
 
   title: {
@@ -49,11 +50,16 @@ const styles = StyleSheet.create({
     ...baseStyle,
     ...Typography.caption,
   },
+  largeHeading: {
+    ...baseStyle,
+    ...Typography.largeHeading,
+  },
 });
 export const AppText = Object.freeze({
   Body: createTextComponent('Body', styles.body),
   Title: createTextComponent('Title', styles.title),
-  Heading: createTextComponent('Heading', styles.heading),
+  SectionHeading: createTextComponent('SectionHeading', styles.heading),
+  LargeHeading: createTextComponent('LargeHeading', styles.largeHeading),
   Label: createTextComponent('Label', styles.label),
   Caption: createTextComponent('Caption', styles.caption),
   Error: createTextComponent('Error', styles.caption),

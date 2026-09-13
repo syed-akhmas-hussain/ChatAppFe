@@ -28,18 +28,19 @@ export const ChipVariant = {
 export type ChipVariant = (typeof ChipVariant)[keyof typeof ChipVariant];
 
 export interface AppChipProps extends Omit<AppPressableProps, 'children'> {
-  label: string;
+  label: string | number;
   variant?: ChipVariant;
   leftIcon?: IconName;
   rightIcon?: IconName;
   selected?: boolean;
   textStyle?: StyleProp<TextStyle>;
 }
+
 export const AppChip = forwardRef<View, AppChipProps>(
   (
     {
       label,
-      variant = 'solid',
+      variant = ChipVariant.Soft,
       selected = false,
       disabled = false,
       leftIcon,
@@ -51,38 +52,67 @@ export const AppChip = forwardRef<View, AppChipProps>(
     ref,
   ) => {
     const containerDynamicStyles: ViewStyle = {};
-    let textColor;
+    let textColor: string = Colors.chip.inactive.text;
+    let iconColor: string = Colors.chip.inactive.text;
+
     switch (variant) {
       case ChipVariant.Solid:
         containerDynamicStyles.backgroundColor = selected
-          ? Colors.primary
-          : Colors.primary;
+          ? Colors.chip.active.background
+          : Colors.chip.inactive.background;
+
+        containerDynamicStyles.borderColor = 'transparent';
+
+        textColor = selected
+          ? Colors.chip.active.text
+          : Colors.chip.inactive.text;
+
+        iconColor = textColor;
         break;
+
       case ChipVariant.Soft:
         containerDynamicStyles.backgroundColor = selected
-          ? Colors.primary
-          : Colors.gray;
-        textColor = Colors.primary;
+          ? Colors.chip.active.background
+          : Colors.chip.inactive.background;
+
+        containerDynamicStyles.borderColor = 'transparent';
+
+        textColor = selected
+          ? Colors.chip.active.text
+          : Colors.chip.inactive.text;
+
+        iconColor = textColor;
         break;
+
       case ChipVariant.Outline:
-        containerDynamicStyles.borderColor = Colors.primary;
-        containerDynamicStyles.backgroundColor = 'transparent';
-        textColor = Colors.primary;
-        break;
-      default:
+        containerDynamicStyles.backgroundColor = Colors.chip.outline.background;
+
+        containerDynamicStyles.borderColor = selected
+          ? Colors.chip.active.border
+          : Colors.chip.outline.border;
+
+        textColor = selected
+          ? Colors.chip.active.text
+          : Colors.chip.outline.text;
+
+        iconColor = textColor;
         break;
     }
 
     if (disabled) {
-      containerDynamicStyles.backgroundColor = Colors.gray;
-      textColor = Colors.gray;
-      containerDynamicStyles.borderColor = Colors.gray;
+      containerDynamicStyles.backgroundColor = Colors.chip.disabled.background;
+
+      containerDynamicStyles.borderColor = Colors.chip.disabled.border;
+
+      textColor = Colors.chip.disabled.text;
+      iconColor = Colors.chip.disabled.text;
     }
 
     return (
       <AppPressable
         ref={ref}
         {...props}
+        disabled={disabled}
         style={state =>
           typeof style === 'function'
             ? [styles.container, containerDynamicStyles, style(state)]
@@ -92,27 +122,44 @@ export const AppChip = forwardRef<View, AppChipProps>(
       >
         <View style={styles.content}>
           {leftIcon && (
-            <AppIcon name={leftIcon} size={moderateScale(Sizes.sm)} />
+            <AppIcon
+              name={leftIcon}
+              size={moderateScale(Sizes.sm)}
+              color={iconColor}
+            />
           )}
-          <AppText.Label numberOfLines={1} style={[textStyle]}>
+
+          <AppText.Label
+            numberOfLines={1}
+            style={[styles.label, { color: textColor }, textStyle]}
+          >
             {label}
           </AppText.Label>
+
           {rightIcon && (
-            <AppIcon name={rightIcon} size={moderateScale(Sizes.sm)} />
+            <AppIcon
+              name={rightIcon}
+              size={moderateScale(Sizes.sm)}
+              color={iconColor}
+            />
           )}
         </View>
       </AppPressable>
     );
   },
 );
+
 AppChip.displayName = 'AppChip';
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+
     paddingHorizontal: scale(Sizes.md),
     paddingVertical: verticalScale(Sizes.xs),
+
     borderRadius: Radius.full,
     borderWidth: StyleSheet.hairlineWidth,
   },
@@ -121,6 +168,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: scale(Sizes.xs),
+  },
+
+  label: {
+    fontSize: moderateScale(14),
+    lineHeight: verticalScale(20),
+    fontWeight: '500',
   },
 
   wrapper: {

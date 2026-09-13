@@ -36,26 +36,36 @@ type AppScreenVariants =
 export type ScrollableContentProps = {
   children: ReactNode;
   contentContainerStyle?: StyleProp<ViewStyle>;
+  gap?: number;
+  paddingTop?: number;
 };
 export type AppScreen = AppScreenVariants & {
   containerStyle?: StyleProp<ViewStyle>;
+  edges?: Edge[];
 } & ScrollableContentProps;
 export const ScrolllableContent = ({
   children,
   contentContainerStyle,
+  gap,
+  paddingTop = 0,
 }: ScrollableContentProps) => {
   const { scrollRef, contentRef } = useScroll();
   return (
     <KeyboardAwareScrollView
       ref={scrollRef}
-      style={styles.scrollContainer}
+      style={[styles.flex1, contentContainerStyle]}
       bottomOffset={KEYBOARD_CONFIG.bottomOffset}
       extraKeyboardSpace={KEYBOARD_CONFIG.extraKeyboardSpace}
-      contentContainerStyle={[styles.contentContainer, contentContainerStyle]}
     >
       <View
         ref={contentRef}
-        style={[styles.contentContainer, contentContainerStyle]}
+        style={[
+          styles.contentContainer,
+          gap !== undefined && { gap: verticalScale(gap) },
+          {
+            paddingTop: verticalScale(paddingTop),
+          },
+        ]}
       >
         {children}
       </View>
@@ -69,16 +79,28 @@ export const AppScreen = ({
   scrollable = true,
   isChat,
   footer,
+  edges = ['top', 'bottom'],
+  gap,
+  paddingTop,
 }: AppScreen) => {
-  const edges: Edge[] = ['top', 'bottom'];
   const behavior = isIos ? 'padding' : 'height';
   if (scrollable) {
     return (
-      <SafeAreaView style={[styles.container, containerStyle]} edges={edges}>
+      <SafeAreaView
+        style={[
+          styles.contentContainer,
+          styles.flex1,
+          containerStyle,
+          styles.overflow,
+        ]}
+        edges={edges}
+      >
         <ScrollProvider>
           <ScrolllableContent
             children={children}
-            contentContainerStyle={contentContainerStyle}
+            contentContainerStyle={containerStyle}
+            gap={gap}
+            paddingTop={paddingTop}
           />
         </ScrollProvider>
       </SafeAreaView>
@@ -87,11 +109,15 @@ export const AppScreen = ({
 
   if (isChat) {
     return (
-      <SafeAreaView style={[styles.container, containerStyle]} edges={edges}>
+      <SafeAreaView
+        style={[styles.contentContainer, styles.flex1, containerStyle]}
+        edges={edges}
+      >
         <KeyboardChatScrollView
-          style={styles.scrollContainer}
+          style={styles.flex1}
           contentContainerStyle={[
             styles.contentContainer,
+            styles.flex1,
             contentContainerStyle,
           ]}
         >
@@ -103,12 +129,18 @@ export const AppScreen = ({
 
   if (footer) {
     return (
-      <SafeAreaView style={[styles.container, containerStyle]} edges={edges}>
-        <KeyboardAvoidingView
-          behavior={behavior}
-          style={styles.keyboardContainer}
-        >
-          <View style={[styles.contentContainer, contentContainerStyle]}>
+      <SafeAreaView
+        style={[styles.contentContainer, styles.flex1, containerStyle]}
+        edges={edges}
+      >
+        <KeyboardAvoidingView behavior={behavior} style={styles.flex1}>
+          <View
+            style={[
+              styles.contentContainer,
+              styles.flex1,
+              contentContainerStyle,
+            ]}
+          >
             {children}
           </View>
 
@@ -119,12 +151,14 @@ export const AppScreen = ({
   }
 
   return (
-    <SafeAreaView style={[styles.container, containerStyle]} edges={edges}>
-      <KeyboardAvoidingView
-        behavior={behavior}
-        style={styles.keyboardContainer}
-      >
-        <View style={[styles.contentContainer, contentContainerStyle]}>
+    <SafeAreaView
+      style={[styles.contentContainer, styles.flex1, containerStyle]}
+      edges={edges}
+    >
+      <KeyboardAvoidingView behavior={behavior} style={styles.flex1}>
+        <View
+          style={[styles.contentContainer, styles.flex1, contentContainerStyle]}
+        >
           {children}
         </View>
       </KeyboardAvoidingView>
@@ -133,22 +167,24 @@ export const AppScreen = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: moderateScale(Sizes.md),
-    backgroundColor: Colors.background,
-  },
-
-  keyboardContainer: {
-    flex: 1,
-  },
-
-  scrollContainer: {
+  flex1: {
     flex: 1,
   },
 
   contentContainer: {
+    gap: verticalScale(Sizes.lg),
+    backgroundColor: Colors.background,
+    paddingHorizontal: moderateScale(Sizes._2xs),
+    //if u add padding , then it will effect other screens
+  },
+  contentContainerStyle: {
     flexGrow: 1,
     gap: verticalScale(Sizes.lg),
+    backgroundColor: Colors.background,
+    paddingHorizontal: moderateScale(Sizes._2xs),
+    //if u add padding , then it will effect other screens
+  },
+  overflow: {
+    overflow: 'hidden',
   },
 });

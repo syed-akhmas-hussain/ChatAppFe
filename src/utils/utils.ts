@@ -14,7 +14,10 @@ export const formatDateTime = (
   return mode === 'date'
     ? date.toLocaleDateString()
     : mode === 'time'
-    ? date.toLocaleTimeString()
+    ? date.toLocaleTimeString([], {
+        hour: 'numeric',
+        minute: '2-digit',
+      })
     : date.toLocaleString();
 };
 export const formatFieldLabel = (name: string): string => {

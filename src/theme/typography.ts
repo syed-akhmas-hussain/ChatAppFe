@@ -46,6 +46,7 @@
 //   },
 
 import { moderateScale, scale, verticalScale } from './responsive';
+import { Sizes } from './sizes';
 
 export const Typography = {
   display: {
@@ -58,7 +59,7 @@ export const Typography = {
 
   largeHeading: {
     fontFamily: 'Inter-Bold',
-    fontSize: moderateScale(26),
+    fontSize: moderateScale(Sizes._3xl),
     lineHeight: verticalScale(34),
     fontWeight: '700',
     letterSpacing: scale(-0.2),
@@ -76,7 +77,7 @@ export const Typography = {
     fontFamily: 'Inter-SemiBold',
     fontSize: moderateScale(17),
     lineHeight: verticalScale(24),
-    fontWeight: '600',
+    fontWeight: '700',
     letterSpacing: scale(0),
   },
 
@@ -108,7 +109,7 @@ export const Typography = {
     fontFamily: 'Inter-Regular',
     fontSize: moderateScale(14),
     lineHeight: verticalScale(20),
-    fontWeight: '400',
+    fontWeight: '500',
     letterSpacing: scale(0),
   },
 
@@ -124,7 +125,7 @@ export const Typography = {
     fontFamily: 'Inter-Regular',
     fontSize: moderateScale(12),
     lineHeight: verticalScale(16),
-    fontWeight: '400',
+    fontWeight: '200',
     letterSpacing: scale(0),
   },
 

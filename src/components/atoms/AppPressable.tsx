@@ -16,18 +16,22 @@ export type AppPressableProps = PressableProps & {
 
 export const AppPressable = forwardRef<View, AppPressableProps>(
   (
-    { pressedOpacity = 0.8, style, android_ripple, containerStyle, ...props },
+    {
+      pressedOpacity = 0.8,
+      style,
+      android_ripple = {
+        color: Colors.gray,
+      },
+      containerStyle,
+      ...props
+    },
     ref,
   ) => {
     const Component = (
       <Pressable
         ref={ref}
         {...props}
-        android_ripple={
-          android_ripple ?? {
-            color: Colors.gray,
-          }
-        }
+        android_ripple={android_ripple}
         style={state => {
           const pressedStyle =
             isIos && state.pressed ? { opacity: pressedOpacity } : undefined;

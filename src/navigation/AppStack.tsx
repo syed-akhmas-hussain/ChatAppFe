@@ -1,15 +1,49 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AppStackParamList } from './types/AppStackParamList';
-import { AppText } from '@/components/atoms';
+import { AllChats } from '@/screens/inbox/AllChats';
+import { AllMessages } from '@/screens/single_chat/AllMessages';
+import { Header } from '@/screens/components/Header';
+import { Colors } from '@/theme';
 
-const HomeScreen = () => <AppText.Body>Home Screen</AppText.Body>;
-const SettingsScreen = () => <AppText.Body>Settings Screen</AppText.Body>;
 const AppStackNavigator = createNativeStackNavigator<AppStackParamList>();
 export const AppStack = () => {
   return (
-    <AppStackNavigator.Navigator initialRouteName="Home">
-      <AppStackNavigator.Screen name="Home" component={HomeScreen} />
-      <AppStackNavigator.Screen name="Settings" component={SettingsScreen} />
+    <AppStackNavigator.Navigator
+      initialRouteName="AllChats"
+      screenOptions={{
+        animation: 'slide_from_right',
+        animationDuration: 250,
+      }}
+    >
+      <AppStackNavigator.Screen
+        name="AllChats"
+        component={AllChats}
+        options={{
+          header: props => (
+            <Header {...props} backgroundColor={Colors.primary} title="Chats" />
+          ),
+        }}
+      />
+      <AppStackNavigator.Screen
+        name="AllMessages"
+        component={AllMessages}
+        options={({
+          route: {
+            params: { name, avatar, onlineStatus, memberCount, onlineMembers },
+          },
+        }) => ({
+          header: props => (
+            <Header
+              {...props}
+              chatAvatar={avatar}
+              chatName={name}
+              onlineStatus={onlineStatus}
+              memberCount={memberCount}
+              onlineMembers={onlineMembers}
+            />
+          ),
+        })}
+      />
     </AppStackNavigator.Navigator>
   );
 };

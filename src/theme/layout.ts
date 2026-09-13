@@ -1,7 +1,7 @@
 import { moderateScale, scale, verticalScale } from './responsive';
 import { Sizes } from './sizes';
 
-export const layout = {
+export const Layout = {
   screenPaddingHorizontal: scale(Sizes.md),
   headerHeight: verticalScale(Sizes._6xl + 8),
   tabBarHeight: verticalScale(Sizes._6xl + 8),
@@ -14,7 +14,7 @@ export const layout = {
     upload: scale(Sizes._7xl + 16),
   },
 };
-export const iconSize = {
+export const IconSize = {
   sm: moderateScale(Sizes.md),
   md: moderateScale(Sizes.lg),
   lg: moderateScale(Sizes.xl),

@@ -6,7 +6,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from '@/services/navigation/navigator';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StatusBar, StyleSheet, useColorScheme } from 'react-native';
-import { AppScreen } from '@/components/layout';
 import Toast from 'react-native-toast-message';
 import { toastConfig } from '@/configs';
 type AppProvidersProps = {
@@ -26,12 +25,8 @@ export const AppProviders = ({ children }: AppProvidersProps) => {
               <StatusBar
                 barStyle={isDarkMode ? 'light-content' : 'dark-content'}
               />
-              <AppScreen scrollable>
-                {children}
-                <Toast config={toastConfig} />
-              </AppScreen>
-              {/* <AppButton title="Open Bottom Sheet" onPress={openBottomSheet} />
-                        {BottomSheet} */}
+              {children}
+              <Toast config={toastConfig} />
             </GestureHandlerRootView>
           </NavigationContainer>
         </KeyboardProvider>

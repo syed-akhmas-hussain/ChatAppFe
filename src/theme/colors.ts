@@ -98,8 +98,9 @@
 export const Colors = {
   primary: '#00BBA9',
   secondary: '#1F2937',
-  background: '#F7FAFC',
+  background: '#F4F7FB',
   surface: '#FFFFFF',
+
   card: '#FFFFFF',
 
   text: {
@@ -112,7 +113,7 @@ export const Colors = {
 
   border: {
     light: '#E5E7EB',
-    default: '#E5E7EB',
+    default: '#D1D5DB',
     strong: '#D1D5DB',
     focus: '#00BBA9',
     error: '#EF4444',
@@ -135,6 +136,33 @@ export const Colors = {
   chat: {
     sentBubble: '#CFF4F0',
     receivedBubble: '#FFFFFF',
+  },
+
+  chip: {
+    active: {
+      background: '#007A70',
+      text: '#FFFFFF',
+      border: 'transparent',
+    },
+
+    inactive: {
+      background: '#E6F8F6',
+      text: '#007A70',
+      border: 'transparent',
+    },
+
+    // Optional outlined variant
+
+    outline: {
+      background: '#FFFFFF',
+      text: '#007A70',
+      border: '#B8E8E3',
+    },
+    disabled: {
+      background: '#F3F4F6',
+      text: '#9CA3AF',
+      border: '#E5E7EB',
+    },
   },
 
   divider: '#E5E7EB',

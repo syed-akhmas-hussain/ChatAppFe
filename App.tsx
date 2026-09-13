@@ -8,8 +8,7 @@
 ('react-native-safe-area-context');
 
 import { AppProviders } from './AppProviders';
-import { LoginForm } from '@/components/molecules/form';
-import { AppText } from '@/components/atoms';
+import { AppStack } from '@/navigation';
 function App() {
   // const { BottomSheet, openBottomSheet } = useAppBottomSheet({
   //   children: <BottomSheetContent />,
@@ -17,10 +16,9 @@ function App() {
 
   return (
     <AppProviders>
-      <>
-        <AppText.Body>Hello 1</AppText.Body>
-        <LoginForm />
-      </>
+      {/* <ChatScreen /> */}
+      {/* <Header /> */}
+      <AppStack />
     </AppProviders>
   );
 }

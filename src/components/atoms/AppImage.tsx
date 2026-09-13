@@ -87,7 +87,18 @@ export const AppImage = forwardRef<Image, AppImageProps>(
       [opacity, propsOnLoad, fadeDuration, enableFade],
     );
     return (
-      <View style={[styles.container, { borderRadius: resolvedRadius }, style]}>
+      <View
+        style={[
+          styles.container,
+          { borderRadius: resolvedRadius },
+          displaySource === fallbackSource && {
+            borderStyle: 'dashed',
+            borderColor: Colors.border.default,
+            borderWidth: 1,
+          },
+          style,
+        ]}
+      >
         <View style={[styles.imageContainer, { borderRadius: resolvedRadius }]}>
           {fallbackComponent && !hasSource ? (
             <View style={styles.children}>{fallbackComponent}</View>
@@ -119,9 +130,6 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: verticalScale(Screen.height * 0.2),
-    borderColor: Colors.border.default,
-    borderWidth: 1,
-    borderStyle: 'dashed',
     position: 'relative',
     alignSelf: 'center',
   },
