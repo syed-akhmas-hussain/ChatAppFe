@@ -15,7 +15,7 @@ export type AppAvatarProps = AppImageProps & {
         bottomRightIconName?: IconName;
         toprightOnPress?: () => void;
         bottomRightOnPress?: () => void;
-        badge: never;
+        badge?: never;
       }
     | {
         topRightIconName?: never;

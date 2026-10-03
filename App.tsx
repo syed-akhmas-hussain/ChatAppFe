@@ -8,17 +8,24 @@
 ('react-native-safe-area-context');
 
 import { AppProviders } from './AppProviders';
-import { AppStack } from '@/navigation';
+import { RootStack } from '@/navigation';
+import { clearStorage } from '@/services/storage';
 function App() {
   // const { BottomSheet, openBottomSheet } = useAppBottomSheet({
   //   children: <BottomSheetContent />,
   // });
-
+  clearStorage();
   return (
     <AppProviders>
       {/* <ChatScreen /> */}
       {/* <Header /> */}
-      <AppStack />
+      {/* <AppStack /> */}
+      {/* <AuthStack /> */}
+      <RootStack />
+      {/* <AppScreen scrollable>
+        <LoginForm />
+      </AppScreen> */}
+      {/* <AudioWaveForm waveform={sampleWaveForm} isRecording={'1:23'} /> */}
     </AppProviders>
   );
 }

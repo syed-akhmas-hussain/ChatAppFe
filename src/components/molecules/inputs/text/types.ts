@@ -2,6 +2,7 @@ import { IconName } from '@/assets/Icons/svg';
 import {
   GestureResponderEvent,
   ImageStyle,
+  PressableAndroidRippleConfig,
   StyleProp,
   TextInputProps,
   TextStyle,
@@ -13,17 +14,48 @@ import { PhoneNumber } from './APhoneInput';
 import { PhoneInputProps } from 'react-native-phone-entry';
 import { Ref } from 'react';
 export type FieldContainerRef = { fieldContainerRef?: Ref<View> };
-export type ATextInputProps = {
-  containerStyle?: StyleProp<ViewStyle>;
+export type AppTextFieldProps = {
   onChange?: (text: string) => void;
-  rightIcon?: IconName;
-  onRightIconPress?: (event: GestureResponderEvent) => void;
-  leftIcon?: IconName;
-  onLeftIconPress?: (event: GestureResponderEvent) => void;
-} & InputLabelAndErrors &
-  Omit<TextInputProps, 'onChange'> &
-  FieldContainerRef &
-  Pick<AppIconButtonProps, 'iconColor' | 'iconShape' | 'iconSize'>;
+  inputStyles?: StyleProp<TextStyle>;
+} & Omit<TextInputProps, 'onChange'> &
+  Pick<AppIconButtonProps, 'iconColor' | 'iconShape' | 'iconSize'> &
+  (
+    | {
+        rightIcon?: IconName | IconName[];
+        onRightIconPress?: (
+          event: GestureResponderEvent,
+        ) => void | ((event: GestureResponderEvent) => void)[];
+        rightButtonRipple?: PressableAndroidRippleConfig | null | undefined;
+
+        leftIcon?: never;
+        onLeftIconPress?: never;
+        leftButtonRipple?: never;
+      }
+    | {
+        rightIcon?: never;
+        onRightIconPress?: never;
+        rightButtonRipple?: never;
+
+        leftIcon?: IconName;
+        onLeftIconPress?: (event: GestureResponderEvent) => void;
+        leftButtonRipple?: PressableAndroidRippleConfig | null | undefined;
+      }
+    | {
+        rightIcon?: never;
+        onRightIconPress?: never;
+        rightButtonRipple?: never;
+
+        leftIcon?: never;
+        onLeftIconPress?: never;
+        leftButtonRipple?: never;
+      }
+  );
+
+export type ATextInputProps = AppTextFieldProps &
+  InputLabelAndErrors &
+  FieldContainerRef & {
+    containerStyle?: StyleProp<ViewStyle>;
+  };
 export type InputLabelAndErrors = Partial<
   Record<'label' | 'error' | 'helperText', string>
 > & {

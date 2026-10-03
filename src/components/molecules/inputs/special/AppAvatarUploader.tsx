@@ -20,17 +20,18 @@ export const AppAvatarUploader = forwardRef<Image, AppAvatarUploaderProps>(
     {
       label,
       required,
-      error,
+      // error,
       helperText,
       containerStyles,
       fieldContainerRef,
       value,
-      onChange,
+      // onChange,
       fileConfig = {},
       ...rest
     },
     ref,
   ) => {
+    const { badge: _badge, ...props } = rest;
     const { name } = useField();
     const {
       formState: { errors: formErrors },
@@ -85,7 +86,7 @@ export const AppAvatarUploader = forwardRef<Image, AppAvatarUploaderProps>(
         containerStyles={containerStyles}
       >
         <AppAvatar
-          {...rest}
+          {...props}
           ref={ref}
           source={file}
           topRightIconName="X"

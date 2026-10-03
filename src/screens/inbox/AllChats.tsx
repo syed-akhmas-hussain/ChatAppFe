@@ -220,6 +220,24 @@ const MOCK_CHATS: ChatFrontDetails[] = [
 type NavigationProp = NativeStackNavigationProp<AppStackParamList>;
 export const AllChats = () => {
   const { navigate } = useNavigation<NavigationProp>();
+  const navigatInsideChat = (chat: ChatFrontDetails) => {
+    const {
+      id: chatId,
+      name,
+      avatar,
+      isOnline: onlineStatus,
+      memberCount,
+      onlineMembers,
+    } = chat;
+    navigate('AllMessages', {
+      chatId,
+      name,
+      avatar,
+      onlineStatus,
+      memberCount,
+      onlineMembers,
+    });
+  };
   return (
     <View style={styles.container}>
       <AppScreen
@@ -242,16 +260,7 @@ export const AllChats = () => {
                 paddingBottom: verticalScale(Sizes._2xs),
               },
             ]}
-            onPress={() =>
-              navigate('AllMessages', {
-                chatId: chat.id,
-                name: chat.name,
-                avatar: chat.avatar,
-                onlineStatus: chat.isOnline,
-                memberCount: chat?.memberCount,
-                onlineMembers: chat?.onlineMembers,
-              })
-            }
+            onPress={() => navigatInsideChat(chat)}
           />
         ))}
       </AppScreen>

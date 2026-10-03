@@ -1,9 +1,12 @@
 import { AppScreen } from '@/components/layout';
-import { Message } from './components/Message';
 import { formatDateTime } from '@/utils/utils';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AppStackParamList } from '@/navigation/types';
 import { Sizes } from '@/theme';
+import { useCallback, useRef } from 'react';
+import { useSharedValue } from 'react-native-reanimated';
+import { KeyboardChatScrollViewRef } from 'react-native-keyboard-controller';
+import { MessageBox } from './components/MessageBox';
+import { MessageCard } from './components/Message';
+import { AllMessagesProp, Message } from './types';
 
 export const messages: Message[] = [
   {
@@ -136,23 +139,40 @@ export const messages: Message[] = [
     messageStatus: 'SENT',
   },
 ];
-type Message = Record<'id' | 'message', string> & {
-  id: string;
-  message: string;
-  time: Date;
-  isUserMessage: boolean;
-  messageStatus: 'SENT' | 'DELIVERED';
-};
-export type AllMessagesProp = NativeStackScreenProps<
-  AppStackParamList,
-  'AllMessages'
->;
-//NativeStackScreenProps: this is used to attach screen based props from navigation and wrap actual screen props inside route.params
-export const AllMessages = ({ route }: AllMessagesProp) => {
+
+export const AllMessages = ({
+  route: {
+    params: { avatar },
+  },
+}: AllMessagesProp) => {
+  const extraContentPadding = useSharedValue(0);
+  const isAtEnd = useRef(true);
+  const lastAddedHeight = useRef(0);
+  const scrollViewRef = useRef<KeyboardChatScrollViewRef>(null);
+
+  const scrollToBottom = (animated = true) =>
+    scrollViewRef.current?.scrollToEnd({ animated });
+
+  const onEndVisible = useCallback(
+    (visible: boolean) => {
+      isAtEnd.current = visible;
+      extraContentPadding.value = visible ? lastAddedHeight.current : 0;
+    },
+    [extraContentPadding],
+  );
+
   return (
-    <AppScreen scrollable paddingTop={Sizes.md}>
+    <AppScreen
+      isChat
+      messageBox={<MessageBox />}
+      paddingTop={Sizes.md}
+      extraContentPadding={extraContentPadding}
+      onEndVisible={onEndVisible}
+      ref={scrollViewRef}
+      onContentSizeChange={() => scrollToBottom(true)}
+    >
       {messages.map(message => (
-        <Message
+        <MessageCard
           key={message.id}
           {...message}
           time={formatDateTime('time', message.time)}

@@ -1,6 +1,12 @@
 import { scale, Sizes } from '@/theme';
 import { ReactNode } from 'react';
-import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewProps,
+  ViewStyle,
+} from 'react-native';
 
 type AppRowProps = {
   children: ReactNode;
@@ -14,15 +20,17 @@ type AppRowProps = {
     | 'space-evenly'
     | undefined;
   rowStyle?: StyleProp<ViewStyle>;
-};
+} & ViewProps;
 export const AppRow = ({
   children,
   gap = 12,
   justifyContent,
   rowStyle,
+  ...rest
 }: AppRowProps) => {
   return (
     <View
+      {...rest}
       style={[
         styles.row,
         !justifyContent ? { gap: scale(gap) } : { justifyContent },
@@ -36,6 +44,7 @@ export const AppRow = ({
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
+    alignItems: 'center',
     gap: scale(Sizes.sm),
   },
 });

@@ -12,7 +12,7 @@ export type MessageProps = {
   avatar?: string;
   name?: string;
 };
-export const Message = ({
+export const MessageCard = ({
   message = 'i m good just working on the project how r u',
   isUserMessage = true,
   time = '9:45 PM',
@@ -39,7 +39,7 @@ export const Message = ({
         <AppAvatar
           source={{ uri }}
           size={Sizes._4xl * 1.5}
-          conatinerStyles={{ alignSelf: 'flex-start' }}
+          conatinerStyles={styles.avatarContainer}
         />
       )}
       <View style={[styles.contentContainer, { backgroundColor, borderColor }]}>
@@ -76,4 +76,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: scale(Sizes._2xs),
   },
+  avatarContainer: { alignSelf: 'flex-start' },
 });

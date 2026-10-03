@@ -8,6 +8,7 @@ import { StyleProp, ViewStyle } from 'react-native';
 import { JSXElementConstructor } from 'react';
 import z from 'zod';
 import { FORM } from './form';
+import { AppButtonProps } from '@/components/atoms';
 
 export type FormPropsMap = {
   [K in keyof typeof FORM]: React.ComponentProps<(typeof FORM)[K]['component']>;
@@ -53,4 +54,4 @@ export type FormConfig<
   defaultValues: DefaultValues<TFieldValues>;
   onSubmit: (data: TOutput) => void;
   onError?: (errors?: FieldErrors<TFieldValues>) => void;
-};
+} & AppButtonProps;

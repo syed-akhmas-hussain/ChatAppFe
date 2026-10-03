@@ -24,6 +24,7 @@ type HeaderProps = {
   onlineStatus?: boolean;
   memberCount?: number;
   onlineMembers?: number;
+  canGoBack?: boolean;
 } & NativeStackHeaderProps;
 export const Header = ({
   headerContainerStyles,
@@ -35,6 +36,8 @@ export const Header = ({
   onlineStatus,
   memberCount,
   onlineMembers,
+  canGoBack = true,
+  navigation,
 }: HeaderProps) => {
   const isChatHeader = !title;
   const isGroupChat = memberCount && onlineMembers;
@@ -45,6 +48,7 @@ export const Header = ({
         { iconName: 'Video' },
         { iconName: 'EllipsisVertical' },
       ];
+  const onBackPress = () => navigation.goBack();
   return (
     <SafeAreaView
       style={[
@@ -56,6 +60,15 @@ export const Header = ({
     >
       <AppRow justifyContent="space-between" rowStyle={styles.iconRow}>
         <AppRow rowStyle={styles.iconRow}>
+          {canGoBack && (
+            <AppIconButton
+              onPress={onBackPress}
+              iconName="ChevronLeft"
+              borderless
+              iconSize={Sizes.xl}
+              android_ripple={null}
+            />
+          )}
           {!isChatHeader && (
             <AppText.LargeHeading
               style={[styles.headingTextStyles, headingTextStyles]}
@@ -105,7 +118,7 @@ export const Header = ({
 
 const styles = StyleSheet.create({
   headerContainer: {
-    paddingHorizontal: moderateScale(Sizes.md),
+    paddingHorizontal: moderateScale(Sizes._2xs),
     height: Layout.headerHeight + Sizes._2xs,
     paddingVertical: verticalScale(Sizes._2xs),
   },

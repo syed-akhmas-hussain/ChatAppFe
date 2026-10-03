@@ -17,7 +17,7 @@ export const Button = {
     outline: {
       background: Colors.transparent,
       foreground: Colors.primary,
-      border: Colors.primary,
+      border: Colors.border.default,
     },
 
     text: {

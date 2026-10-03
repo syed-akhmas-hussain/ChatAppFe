@@ -7,11 +7,17 @@ export const APasswordInput = forwardRef<TextInput, APasswordInputProps>(
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const iconName: 'Eye' | 'EyeOff' = showPassword ? 'Eye' : 'EyeOff';
     const onRightIconPress = () => setShowPassword(prev => !prev);
+    const {
+      leftIcon: _leftIcon,
+      onLeftIconPress: _onLeftIconPress,
+      leftButtonRipple: _leftButtonRipple,
+      ...txtInputProps
+    } = rest;
     return (
       <ATextInput
         ref={ref}
         label={label}
-        {...rest}
+        {...txtInputProps}
         autoCapitalize="none"
         autoCorrect={false}
         secureTextEntry={!showPassword}

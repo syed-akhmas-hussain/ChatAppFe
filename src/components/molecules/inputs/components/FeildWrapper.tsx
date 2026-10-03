@@ -18,17 +18,10 @@ export const FeildWrapper = forwardRef<View, FeildWrapperProps>(
     ref,
   ) => {
     const { name } = useField();
-    console.log('REGISTERING FIELD:', name);
     const { handleLayout } = useHandleLayout();
     const { contentRef } = useScroll();
     const onLayout = () => {
       const node = (ref as RefObject<View>)?.current;
-
-      console.log('FIELD LAYOUT:', {
-        name,
-        node: !!node,
-        contentRef: !!contentRef.current,
-      });
 
       if (node && contentRef.current) {
         node.measureLayout(

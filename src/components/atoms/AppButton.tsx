@@ -94,7 +94,7 @@ export const AppButton = forwardRef<View, AppButtonProps>(
         <View style={styles.content}>
           {leftIcon}
 
-          <AppText.Body
+          <AppText.Label
             style={[
               styles.text,
               {
@@ -104,13 +104,13 @@ export const AppButton = forwardRef<View, AppButtonProps>(
             ]}
           >
             {title}
-          </AppText.Body>
+          </AppText.Label>
 
           {rightIcon}
           {loading ? (
             <ActivityIndicator color={spinnerColor} />
           ) : success ? (
-            <AppText.Body
+            <AppText.Label
               style={[
                 styles.text,
                 {
@@ -120,9 +120,9 @@ export const AppButton = forwardRef<View, AppButtonProps>(
               ]}
             >
               <AppIcon name={'CircleCheck'} size={Sizes.xl} color={'green'} />
-            </AppText.Body>
+            </AppText.Label>
           ) : error ? (
-            <AppText.Body
+            <AppText.Label
               style={[
                 styles.text,
                 {
@@ -132,7 +132,7 @@ export const AppButton = forwardRef<View, AppButtonProps>(
               ]}
             >
               <AppIcon name={'X'} size={Sizes.xl} color={'red'} />
-            </AppText.Body>
+            </AppText.Label>
           ) : null}
         </View>
       </AppPressable>

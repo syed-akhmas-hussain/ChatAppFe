@@ -17,6 +17,7 @@ export const DynamicForm = <
   defaultValues,
   onSubmit,
   onError,
+  ...rest
 }: FormConfig<TFieldValues, TOutput>) => {
   const { scrollRef } = useScroll();
   const { fieldPositions } = useHandleLayout();
@@ -46,7 +47,7 @@ export const DynamicForm = <
       })}
 
       <AppButton
-        title="Proceed"
+        {...rest}
         onPress={methods.handleSubmit(onSubmit, errors => {
           onErrorGeneral(errors, fieldPositions, scrollRef);
           onError?.(errors);

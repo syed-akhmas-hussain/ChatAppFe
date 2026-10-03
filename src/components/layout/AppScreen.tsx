@@ -2,14 +2,21 @@ import { KEYBOARD_CONFIG } from '@/configs';
 import { ScrollProvider, useScroll } from '@/hooks/useScroll';
 import { Colors, moderateScale, Sizes, verticalScale } from '@/theme';
 import { isIos } from '@/utils/utils';
-import { ReactNode } from 'react';
-import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import React, { ReactNode, Ref } from 'react';
+import {
+  ScrollView,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {
   KeyboardAvoidingView,
   KeyboardAwareScrollView,
   KeyboardChatScrollView,
   KeyboardStickyView,
 } from 'react-native-keyboard-controller';
+import { SharedValue } from 'react-native-reanimated';
 import { Edge, SafeAreaView } from 'react-native-safe-area-context';
 
 type AppScreenVariants =
@@ -17,21 +24,43 @@ type AppScreenVariants =
       scrollable: true;
       isChat?: never;
       footer?: never;
+      messageBox?: never;
+      extraContentPadding?: never;
+      onEndVisible?: never;
+      ref?: never;
+      onContentSizeChange?: never;
     }
   | {
       scrollable?: never;
       isChat: true;
       footer?: never;
+      messageBox: ReactNode;
+      extraContentPadding?: SharedValue<number> | undefined;
+      onEndVisible?: (visible: boolean) => void;
+      ref?: Ref<ScrollView> | undefined;
+      onContentSizeChange?:
+        | ((contentWidth: number, contentHeight: number) => void)
+        | undefined;
     }
   | {
       scrollable?: never;
       isChat?: never;
+      messageBox?: never;
       footer: ReactNode;
+      extraContentPadding?: never;
+      onEndVisible?: never;
+      ref?: never;
+      onContentSizeChange?: never;
     }
   | {
       scrollable?: false;
       isChat?: false;
       footer?: false;
+      messageBox?: false;
+      extraContentPadding?: never;
+      onEndVisible?: never;
+      ref?: never;
+      onContentSizeChange?: never;
     };
 export type ScrollableContentProps = {
   children: ReactNode;
@@ -47,7 +76,7 @@ export const ScrolllableContent = ({
   children,
   contentContainerStyle,
   gap,
-  paddingTop = 0,
+  paddingTop = verticalScale(Sizes._2xs),
 }: ScrollableContentProps) => {
   const { scrollRef, contentRef } = useScroll();
   return (
@@ -76,12 +105,17 @@ export const AppScreen = ({
   children,
   containerStyle,
   contentContainerStyle,
-  scrollable = true,
+  scrollable,
   isChat,
   footer,
   edges = ['top', 'bottom'],
   gap,
-  paddingTop,
+  paddingTop = verticalScale(Sizes._2xs),
+  messageBox,
+  extraContentPadding,
+  onEndVisible,
+  ref,
+  onContentSizeChange,
 }: AppScreen) => {
   const behavior = isIos ? 'padding' : 'height';
   if (scrollable) {
@@ -110,19 +144,37 @@ export const AppScreen = ({
   if (isChat) {
     return (
       <SafeAreaView
-        style={[styles.contentContainer, styles.flex1, containerStyle]}
+        style={[
+          styles.flex1,
+          containerStyle,
+          {
+            backgroundColor: Colors.background,
+          },
+        ]}
         edges={edges}
       >
         <KeyboardChatScrollView
-          style={styles.flex1}
+          ref={ref}
+          onContentSizeChange={onContentSizeChange}
+          extraContentPadding={extraContentPadding}
+          onEndVisible={onEndVisible}
           contentContainerStyle={[
             styles.contentContainer,
-            styles.flex1,
             contentContainerStyle,
+            {
+              paddingVertical: verticalScale(paddingTop),
+            },
           ]}
         >
           {children}
         </KeyboardChatScrollView>
+        <KeyboardStickyView
+          style={{
+            paddingHorizontal: moderateScale(Sizes._2xs),
+          }}
+        >
+          {messageBox}
+        </KeyboardStickyView>
       </SafeAreaView>
     );
   }
@@ -143,7 +195,6 @@ export const AppScreen = ({
           >
             {children}
           </View>
-
           <KeyboardStickyView>{footer}</KeyboardStickyView>
         </KeyboardAvoidingView>
       </SafeAreaView>
@@ -156,9 +207,7 @@ export const AppScreen = ({
       edges={edges}
     >
       <KeyboardAvoidingView behavior={behavior} style={styles.flex1}>
-        <View
-          style={[styles.contentContainer, styles.flex1, contentContainerStyle]}
-        >
+        <View style={[styles.contentContainer, contentContainerStyle]}>
           {children}
         </View>
       </KeyboardAvoidingView>
@@ -172,13 +221,6 @@ const styles = StyleSheet.create({
   },
 
   contentContainer: {
-    gap: verticalScale(Sizes.lg),
-    backgroundColor: Colors.background,
-    paddingHorizontal: moderateScale(Sizes._2xs),
-    //if u add padding , then it will effect other screens
-  },
-  contentContainerStyle: {
-    flexGrow: 1,
     gap: verticalScale(Sizes.lg),
     backgroundColor: Colors.background,
     paddingHorizontal: moderateScale(Sizes._2xs),

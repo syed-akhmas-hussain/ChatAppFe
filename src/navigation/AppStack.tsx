@@ -4,23 +4,25 @@ import { AllChats } from '@/screens/inbox/AllChats';
 import { AllMessages } from '@/screens/single_chat/AllMessages';
 import { Header } from '@/screens/components/Header';
 import { Colors } from '@/theme';
-
+import { commomScreenOptions } from '@/configs/stackScreenConfig';
 const AppStackNavigator = createNativeStackNavigator<AppStackParamList>();
 export const AppStack = () => {
   return (
     <AppStackNavigator.Navigator
       initialRouteName="AllChats"
-      screenOptions={{
-        animation: 'slide_from_right',
-        animationDuration: 250,
-      }}
+      screenOptions={commomScreenOptions}
     >
       <AppStackNavigator.Screen
         name="AllChats"
         component={AllChats}
         options={{
           header: props => (
-            <Header {...props} backgroundColor={Colors.primary} title="Chats" />
+            <Header
+              {...props}
+              backgroundColor={Colors.primary}
+              title="Chats"
+              canGoBack={false}
+            />
           ),
         }}
       />

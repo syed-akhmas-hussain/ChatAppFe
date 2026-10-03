@@ -8,6 +8,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StatusBar, StyleSheet, useColorScheme } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { toastConfig } from '@/configs';
+import { AuthProvider } from '@/hooks/useAuth';
 type AppProvidersProps = {
   children: React.JSX.Element;
 };
@@ -22,11 +23,13 @@ export const AppProviders = ({ children }: AppProvidersProps) => {
         <KeyboardProvider>
           <NavigationContainer ref={navigationRef}>
             <GestureHandlerRootView style={styles.container}>
-              <StatusBar
-                barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-              />
-              {children}
-              <Toast config={toastConfig} />
+              <AuthProvider>
+                <StatusBar
+                  barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+                />
+                {children}
+                <Toast config={toastConfig} />
+              </AuthProvider>
             </GestureHandlerRootView>
           </NavigationContainer>
         </KeyboardProvider>
