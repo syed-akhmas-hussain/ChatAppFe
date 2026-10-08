@@ -6,7 +6,7 @@ import { AOtpInputProps } from './types';
 
 export const AOtpInput = ({
   label = 'OTP Input',
-  required = false,
+  required = true,
   error,
   helperText,
   onBlur,
@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.border.default,
     borderWidth: 1,
     borderRadius: Radius.md,
+    width: '15%',
   },
   pinCodeText: {
     color: Colors.text.primary,

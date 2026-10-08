@@ -7,23 +7,15 @@ import { AuthStackParamList } from './types/AuthStackParamList ';
 import { Login } from '@/screens/auth/Login';
 import { Colors, moderateScale, Sizes } from '@/theme';
 import { commomScreenOptions } from '@/configs/stackScreenConfig';
+import { Register } from '@/screens/auth/Register';
+import { OtpScreen } from '@/screens/auth/Otp';
+import { StyleSheet } from 'react-native';
 const AuthStackNavigator = createNativeStackNavigator<AuthStackParamList>();
 
-const RegisterScreen = () => <AppText.Body>Register Screen</AppText.Body>;
-const OtpScreen = () => <AppText.Body>Otp Screen</AppText.Body>;
-
-const AuthHeader = (props: NativeStackHeaderProps) => {
+const AuthHeader = (_props: NativeStackHeaderProps) => {
   return (
-    <AppRow
-      rowStyle={{
-        backgroundColor: Colors.primary,
-        padding: moderateScale(Sizes.md),
-        borderBottomLeftRadius: moderateScale(Sizes.sm),
-        borderBottomRightRadius: moderateScale(Sizes.sm),
-        justifyContent: 'center',
-      }}
-    >
-      <AppText.LargeHeading style={{ color: Colors.background }}>
+    <AppRow rowStyle={styles.header}>
+      <AppText.LargeHeading style={styles.headerHeading}>
         Chatter
       </AppText.LargeHeading>
     </AppRow>
@@ -40,8 +32,23 @@ export const AuthStack = () => {
       }}
     >
       <AuthStackNavigator.Screen name="Login" component={Login} />
-      <AuthStackNavigator.Screen name="Register" component={RegisterScreen} />
-      <AuthStackNavigator.Screen name="Otp" component={OtpScreen} />
+      <AuthStackNavigator.Screen name="Register" component={Register} />
+      <AuthStackNavigator.Screen
+        name="Otp"
+        component={OtpScreen}
+        options={{ gestureEnabled: false }}
+      />
     </AuthStackNavigator.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  header: {
+    backgroundColor: Colors.primary,
+    padding: moderateScale(Sizes.md),
+    borderBottomLeftRadius: moderateScale(Sizes.sm),
+    borderBottomRightRadius: moderateScale(Sizes.sm),
+    justifyContent: 'center',
+  },
+  headerHeading: { color: Colors.background },
+});

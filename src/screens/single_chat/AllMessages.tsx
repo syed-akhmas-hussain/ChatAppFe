@@ -142,7 +142,7 @@ export const messages: Message[] = [
 
 export const AllMessages = ({
   route: {
-    params: { avatar },
+    params: { avatar: _avatar },
   },
 }: AllMessagesProp) => {
   const extraContentPadding = useSharedValue(0);
@@ -161,15 +161,18 @@ export const AllMessages = ({
     [extraContentPadding],
   );
 
+  const onContentSizeChange = useCallback(() => scrollToBottom(true), []);
   return (
     <AppScreen
       isChat
-      messageBox={<MessageBox />}
+      footer={<MessageBox />}
       paddingTop={Sizes.md}
-      extraContentPadding={extraContentPadding}
-      onEndVisible={onEndVisible}
-      ref={scrollViewRef}
-      onContentSizeChange={() => scrollToBottom(true)}
+      chatViewProps={{
+        ref: scrollViewRef,
+        extraContentPadding,
+        onEndVisible,
+        onContentSizeChange,
+      }}
     >
       {messages.map(message => (
         <MessageCard

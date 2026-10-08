@@ -22,6 +22,9 @@ export const AppTextField = forwardRef<TextInput, AppTextFieldProps>(
     const rightIconsWidth = Array.isArray(rightIcon)
       ? rightIcon.length * scale(Sizes._6xl - 3)
       : scale(Sizes._6xl);
+    //Calculation below is to remove all padding right when there are multiple icons on right of text input
+    const right =
+      rightIconsWidth - scale(Sizes.xs * 2) - scale(Sizes.sm) - scale(Sizes.xs);
     return (
       <View style={[styles.inputContainer, styles.fullWidth]}>
         <TextInput
@@ -32,25 +35,34 @@ export const AppTextField = forwardRef<TextInput, AppTextFieldProps>(
             styles.input,
             rest.multiline ? styles.multilineInput : styles.singleLineInput,
             leftIcon && styles.inputWithLeftIcon,
-            rightIcon && { paddingRight: rightIconsWidth },
+            rightIcon && { paddingRight: rightIconsWidth - scale(Sizes.sm) },
           ]}
           onChangeText={onChange}
         />
         {rightIcon &&
           (Array.isArray(rightIcon) ? (
             <AppRow
+              justifyContent="center"
               rowStyle={[
                 styles.commonIcon,
                 styles.commonIconContainer,
                 styles.rightIconContainer,
-                { width: rightIconsWidth, gap: scale(Sizes.xs) },
+                {
+                  width: rightIconsWidth,
+                  gap: scale(Sizes.xs),
+                  right,
+                },
               ]}
             >
               {rightIcon.map((icon, index) => (
                 <AppIconButton
                   key={icon + String(index)}
                   iconName={icon}
-                  onPress={onRightIconPress}
+                  onPress={
+                    Array.isArray(onRightIconPress)
+                      ? onRightIconPress[index]
+                      : onRightIconPress
+                  }
                   android_ripple={rightButtonRipple}
                   borderless
                 />
@@ -59,7 +71,9 @@ export const AppTextField = forwardRef<TextInput, AppTextFieldProps>(
           ) : (
             <AppIconButton
               iconName={rightIcon}
-              onPress={onRightIconPress}
+              onPress={
+                !Array.isArray(onRightIconPress) ? onRightIconPress : undefined
+              }
               android_ripple={rightButtonRipple}
               containerStyle={[
                 styles.commonIconContainer,
@@ -133,3 +147,4 @@ const styles = StyleSheet.create({
     paddingLeft: verticalScale(Sizes._6xl),
   },
 });
+AppTextField.displayName = 'AppTextField';

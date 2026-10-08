@@ -24,7 +24,8 @@ export type AppAvatarProps = AppImageProps & {
         bottomRightOnPress?: never;
         badge?: Element;
       }
-  );
+  ) &
+  Pick<AppImageProps, 'isAvatar'>;
 export const AppAvatar = forwardRef<Image, AppAvatarProps>(
   (
     {
@@ -35,6 +36,7 @@ export const AppAvatar = forwardRef<Image, AppAvatarProps>(
       bottomRightOnPress,
       badge,
       conatinerStyles,
+      isAvatar = false,
       ...props
     },
     ref,
@@ -53,6 +55,7 @@ export const AppAvatar = forwardRef<Image, AppAvatarProps>(
           radius={resolvedSize / 2}
           fallbackSource={AvatarPlaceholder}
           resizeMode={props.source ? 'cover' : 'contain'}
+          isAvatar={isAvatar}
         />
         {topRightIconName && (
           <AppIconButton

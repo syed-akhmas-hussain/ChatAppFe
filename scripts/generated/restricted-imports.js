@@ -77,6 +77,10 @@ module.exports = [
     message: 'Import AppToast from "@/components/atoms" instead.',
   },
   {
+    group: ['@/components/atoms/Timer'],
+    message: 'Import Timer from "@/components/atoms" instead.',
+  },
+  {
     group: ['@/theme/button'],
     message: 'Import button from "@/theme" instead.',
   },

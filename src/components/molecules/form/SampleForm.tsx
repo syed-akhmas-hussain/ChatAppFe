@@ -226,6 +226,7 @@ export const LoginForm = () => {
         onSubmit={data => {
           console.log(data);
         }}
+        title="Test Form"
       />
     </HandleLayoutProvider>
   );

@@ -33,6 +33,7 @@ export interface AppImageProps extends ImageProps {
   fadeDuration?: number;
   topRightIconName?: IconName;
   toprightOnPress?: () => void;
+  isAvatar?: boolean;
 }
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 export const AppImage = forwardRef<Image, AppImageProps>(
@@ -47,6 +48,7 @@ export const AppImage = forwardRef<Image, AppImageProps>(
       resizeMode = 'contain',
       topRightIconName,
       toprightOnPress,
+      isAvatar,
       ...props
     },
     ref,
@@ -65,11 +67,15 @@ export const AppImage = forwardRef<Image, AppImageProps>(
       },
       [propsOnError],
     );
+    console.log('IMAGE DEBUG', {
+      radius,
+      style,
+      hasSource,
+      displaySource,
+    });
 
     const resolvedRadius =
-      typeof radius === 'number'
-        ? moderateScale(radius)
-        : moderateScale(Sizes[radius]);
+      typeof radius === 'number' ? radius : moderateScale(Sizes[radius]);
     const opacity = useRef(new Animated.Value(enableFade ? 0 : 1)).current;
 
     const onLoad = useCallback<NonNullable<ImageProps['onLoad']>>(
@@ -90,13 +96,12 @@ export const AppImage = forwardRef<Image, AppImageProps>(
       <View
         style={[
           styles.container,
-          { borderRadius: resolvedRadius },
-          displaySource === fallbackSource && {
-            borderStyle: 'dashed',
-            borderColor: Colors.border.default,
-            borderWidth: 1,
+          isAvatar && {
+            width: style ? undefined : resolvedRadius * 2,
+            height: resolvedRadius * 2,
           },
           style,
+          { borderRadius: resolvedRadius },
         ]}
       >
         <View style={[styles.imageContainer, { borderRadius: resolvedRadius }]}>
@@ -113,6 +118,22 @@ export const AppImage = forwardRef<Image, AppImageProps>(
             />
           )}
         </View>
+
+        {displaySource === fallbackSource && (
+          <View
+            pointerEvents="none"
+            style={[
+              StyleSheet.absoluteFill,
+              {
+                borderRadius: resolvedRadius,
+                borderStyle: 'dashed',
+                borderColor: Colors.border.default,
+                borderWidth: 1,
+              },
+            ]}
+          />
+        )}
+
         {topRightIconName && hasSource && (
           <AppIconButton
             iconName={topRightIconName}
@@ -155,5 +176,11 @@ const styles = StyleSheet.create({
     zIndex: ZIndex.floatingIcon,
     right: moderateScale(Sizes._2xs / 4),
     position: 'absolute',
+  },
+
+  dashedBorder: {
+    borderStyle: 'dashed',
+    borderColor: Colors.border.default,
+    borderWidth: 1,
   },
 });

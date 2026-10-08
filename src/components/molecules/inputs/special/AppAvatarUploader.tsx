@@ -20,12 +20,10 @@ export const AppAvatarUploader = forwardRef<Image, AppAvatarUploaderProps>(
     {
       label,
       required,
-      // error,
       helperText,
       containerStyles,
       fieldContainerRef,
       value,
-      // onChange,
       fileConfig = {},
       ...rest
     },
@@ -93,6 +91,7 @@ export const AppAvatarUploader = forwardRef<Image, AppAvatarUploaderProps>(
           toprightOnPress={() => file && onRemoveImage(file)}
           bottomRightIconName="Camera"
           bottomRightOnPress={onImagePress}
+          isAvatar
         />
       </FeildWrapper>
     );

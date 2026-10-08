@@ -16,3 +16,4 @@ export * from './AppSpacer';
 export * from './AppSwitch';
 export * from './AppText';
 export * from './AppToast';
+export * from './Timer';

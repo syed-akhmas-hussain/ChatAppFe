@@ -24,24 +24,7 @@ export const FeildWrapper = forwardRef<View, FeildWrapperProps>(
       const node = (ref as RefObject<View>)?.current;
 
       if (node && contentRef.current) {
-        node.measureLayout(
-          contentRef.current,
-          (x, y) => {
-            console.log('MEASURED:', {
-              name,
-              x,
-              y,
-            });
-
-            handleLayout(name)(y);
-          },
-          () => {
-            console.log('MEASURE ERROR:', {
-              name,
-              error,
-            });
-          },
-        );
+        node.measureLayout(contentRef.current, (x, y) => handleLayout(name)(y));
       }
     };
 

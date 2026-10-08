@@ -1,8 +1,8 @@
 import { IconName } from '@/assets/Icons/svg';
 import {
-  GestureResponderEvent,
   ImageStyle,
   PressableAndroidRippleConfig,
+  PressableProps,
   StyleProp,
   TextInputProps,
   TextStyle,
@@ -14,6 +14,8 @@ import { PhoneNumber } from './APhoneInput';
 import { PhoneInputProps } from 'react-native-phone-entry';
 import { Ref } from 'react';
 export type FieldContainerRef = { fieldContainerRef?: Ref<View> };
+
+export type PressHandler = PressableProps['onPress'];
 export type AppTextFieldProps = {
   onChange?: (text: string) => void;
   inputStyles?: StyleProp<TextStyle>;
@@ -22,9 +24,7 @@ export type AppTextFieldProps = {
   (
     | {
         rightIcon?: IconName | IconName[];
-        onRightIconPress?: (
-          event: GestureResponderEvent,
-        ) => void | ((event: GestureResponderEvent) => void)[];
+        onRightIconPress?: PressHandler | PressHandler[];
         rightButtonRipple?: PressableAndroidRippleConfig | null | undefined;
 
         leftIcon?: never;
@@ -37,7 +37,7 @@ export type AppTextFieldProps = {
         rightButtonRipple?: never;
 
         leftIcon?: IconName;
-        onLeftIconPress?: (event: GestureResponderEvent) => void;
+        onLeftIconPress?: PressHandler;
         leftButtonRipple?: PressableAndroidRippleConfig | null | undefined;
       }
     | {

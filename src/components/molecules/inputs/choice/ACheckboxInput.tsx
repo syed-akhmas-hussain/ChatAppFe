@@ -6,7 +6,7 @@ import { ACheckboxInputProps } from './types';
 export const ACheckboxInput = <T extends string = string>({
   value = [],
   onChange,
-  text = 'Check Box',
+  text: _text = 'Check Box',
   label = 'Check Box',
   required = true,
   error,
@@ -41,8 +41,8 @@ export const ACheckboxInput = <T extends string = string>({
             key={option.value}
             isChecked={
               !isRadio
-                ? value?.includes(option.value)
-                : value?.[0] === option.value
+                ? value?.includes?.(option?.value)
+                : value?.[0] === option?.value
             }
             onPress={checked => handleChange(checked, option.value)}
             fillColor={Colors.primary}
